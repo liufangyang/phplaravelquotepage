@@ -12,6 +12,11 @@ class QuoteController extends Controller{
         return view('index',['quotes' => $quotes]);
     }
     public function postQuote(Request $request){
+        
+    $this->validate($request ,[
+        'author'=>'required|max:60|alpha',
+        'quote'=>'required|max:500'
+    ]);
         $authorText = ucfirst($request['author']);
         $quoteText = $request['quote'];
         $author = Author::where('name',$authorText)->first();
@@ -23,6 +28,6 @@ class QuoteController extends Controller{
         $quote = new Quote();
         $quote->quote = $quoteText;
         $author->quotes()->save($quote);
-        return redirect()->route('index')->with(['sucess'=> true,'message'=>'Quote saved']);
+        return redirect()->route('index')->with(['success'=>'Quote saved']);
     }
 }

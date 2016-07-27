@@ -13,19 +13,31 @@ Quote page
 @endSection
  
 @section('content')
+@if(count($errors) > 0)
+<section class="info-box fail">
+    @foreach($errors->all() as $error)
+    {{$error}}
+    @endforeach
+    </section>
+@endif
+@if(Session::has('success'))
+<section class="info-box success">
+    {{Session::get('success')}}
+</section>
+@endif
 
 <section class = "quotes">
     <h1>Latest quotes</h1>
     
     @for($i = 0 ; $i< count($quotes); $i++)
-     <artical class="quote">
+     <artical class="quote" >
         <div class="delete"><a href="#">x</a></div>
         {{$quotes[$i]->quote}}
         <div class="info">create by <a href ="#">{{$quotes[$i]->author->name}}</a> on {{$quotes[$i]->created_at}}</div>
     </artical>
     @endFor
+    <div class="pagnition">  pagnition</div>
     
-    pagnition
 </section>
 <section class = "edit-quote">
     <h1>Add a quote</h1>
