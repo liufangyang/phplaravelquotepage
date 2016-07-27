@@ -16,16 +16,20 @@ Quote page
 
 <section class = "quotes">
     <h1>Latest quotes</h1>
-    <artical class="quote">
+    
+    @for($i = 0 ; $i< count($quotes); $i++)
+     <artical class="quote">
         <div class="delete"><a href="#">x</a></div>
-        quote text
-        <div class="info">create by <a href ="#">jimmy</a> on ...</div>
+        {{$quotes[$i]->quote}}
+        <div class="info">create by <a href ="#">{{$quotes[$i]->author->name}}</a> on {{$quotes[$i]->created_at}}</div>
     </artical>
+    @endFor
+    
     pagnition
 </section>
 <section class = "edit-quote">
     <h1>Add a quote</h1>
-    <form>
+    <form method="post" action="{{route('create')}}">
     <div class="input-group">
         <label for="author">Your name</label>
         <input type="text" name="author" id="auther" placeholder="your name"/>
@@ -34,7 +38,7 @@ Quote page
         <label for="quote">Your quote</label>
  <textarea name="quote" id="quote" row="5" placeholder="type your quote here"></textarea>
  </div>
-    <button type="submit">submit</button>
+    <button type="submit" class ="btn">submit</button>
     <input type="hidden" name="_token" value="{{Session::token()}}"/>
     </form>
 </section>
