@@ -7,10 +7,12 @@ use App\Quote;
 use Illuminate\Http\Request;
 
 class QuoteController extends Controller{
+    
     public function getIndex(){
         $quotes=Quote::all();
         return view('index',['quotes' => $quotes]);
     }
+    
     public function postQuote(Request $request){
         
     $this->validate($request ,[
@@ -30,4 +32,20 @@ class QuoteController extends Controller{
         $author->quotes()->save($quote);
         return redirect()->route('index')->with(['success'=>'Quote saved']);
     }
+    
+    public function deleteQuoteById($quote_id){
+        $quote = Quote::find($quote_id);
+        $author_deleted = false;
+        if(count($quote->author->quotes) === 1){
+            
+            $quote->author->delete();
+            $author_deleted = true;
+            
+        }
+        $quote->delete();
+        $message = $author_deleted ? "Author and quote are being deleted" : "Quote being deleted";
+        return redirect()->route('index')->with(['success'=>$message]);
+    }
+    
+    
 }

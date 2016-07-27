@@ -31,7 +31,7 @@ Quote page
     
     @for($i = 0 ; $i< count($quotes); $i++)
      <artical class="quote" >
-        <div class="delete"><a href="#">x</a></div>
+        <div class="delete"><a href="{{route('delete',['quote_id'=>$quotes[$i]->id])}}">x</a></div>
         {{$quotes[$i]->quote}}
         <div class="info">create by <a href ="#">{{$quotes[$i]->author->name}}</a> on {{$quotes[$i]->created_at}}</div>
     </artical>
