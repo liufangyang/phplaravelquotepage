@@ -23,17 +23,19 @@ Quote page
     </artical>
     pagnition
 </section>
-<section class = "edit-quotes">
+<section class = "edit-quote">
     <h1>Add a quote</h1>
+    <form>
     <div class="input-group">
         <label for="author">Your name</label>
         <input type="text" name="author" id="auther" placeholder="your name"/>
     </div>
-    <div class-"input-group">
+    <div class="input-group">
         <label for="quote">Your quote</label>
  <textarea name="quote" id="quote" row="5" placeholder="type your quote here"></textarea>
-    </div>
-    <button type="submet">submit</button>
+ </div>
+    <button type="submit">submit</button>
     <input type="hidden" name="_token" value="{{Session::token()}}"/>
+    </form>
 </section>
 @endSection
