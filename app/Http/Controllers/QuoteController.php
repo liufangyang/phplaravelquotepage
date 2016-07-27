@@ -8,10 +8,18 @@ use Illuminate\Http\Request;
 
 class QuoteController extends Controller{
     
-    public function getIndex(){
-        $quotes=Quote::all();
+    public function getIndex($author = null){
+        $quote_author = null;
+        if(!is_null($author)){
+             $quote_author = Author::find('name',$author)->first();
+        }
+        if($quote_author){
+            $quotes = $quote_author->quotes()->orderBy('created_at','desc')->paginate(6);
+        }else{
+            $quotes = Quote::orderBy('created_at','desc')->paginate(6);
+        }
         return view('index',['quotes' => $quotes]);
-    }
+        }
     
     public function postQuote(Request $request){
         

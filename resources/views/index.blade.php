@@ -8,7 +8,7 @@ Quote page
 
 @section('styles')
 
-<link rel = "stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome.min.css"> 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 @endSection
  
@@ -36,7 +36,14 @@ Quote page
         <div class="info">create by <a href ="#">{{$quotes[$i]->author->name}}</a> on {{$quotes[$i]->created_at}}</div>
     </artical>
     @endFor
-    <div class="pagnition">  pagnition</div>
+    <div class="pagnition">  
+    @if($quotes->currentPage() !== 1)
+    <a href = "{{$quotes->previousPageUrl()}}"><span class="fa fa-caret-left"></span></a>
+    @endif
+    @if($quotes->currentPage() !== $quotes->lastPage() && $quotes->hasPages())
+       <a href = "{{$quotes->nextPageUrl()}}"><span class="fa fa-caret-right"></span></a>
+    @endif
+    </div>
     
 </section>
 <section class = "edit-quote">
